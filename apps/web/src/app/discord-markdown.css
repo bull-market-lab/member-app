@@ -1,0 +1,35 @@
+.d-emoji {
+  object-fit: contain;
+  width: 22px;
+  height: 22px;
+  vertical-align: bottom;
+  display: inline-block;
+}
+
+.d-code-block {
+  margin-top: 6px;
+  border: 1px solid rgba(100, 100, 100, 0.5);
+  font-size: 14px;
+}
+
+.d-code-block,
+.d-code-block code {
+  border-radius: 4px;
+}
+
+.d-code-block code.hljs {
+  padding: 0.5em;
+}
+
+.d-code-inline {
+  padding: 0.2em 0.3em;
+  font-family: ui-monospace, monospace;
+  font-size: 85%;
+  background: rgba(100, 100, 100, 0.4);
+  border-radius: 4px;
+  white-space: pre-wrap;
+}
+
+.d-mention {
+  @apply px-0.5 text-white bg-[#7f8aff40] rounded font-medium;
+}
