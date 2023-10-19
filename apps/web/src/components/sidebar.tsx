@@ -1,4 +1,4 @@
-import { MostHelpful } from '@/src/components/most-helpful'
+import { MostHelpful } from '@/src/components/mostHelpful'
 
 export const Sidebar = () => {
   return (

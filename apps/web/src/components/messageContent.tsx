@@ -1,4 +1,4 @@
-import { parseDiscordMessage } from '@/src/utils/discord-markdown'
+import { parseDiscordMessage } from '@/src/utils/discordMarkdown'
 import { isVideoLink } from '@/src/utils/video'
 
 export type Attachment = {

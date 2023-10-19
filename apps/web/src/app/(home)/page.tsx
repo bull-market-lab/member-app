@@ -1,4 +1,4 @@
-import { PostsList } from '@/src/components/posts-list'
+import { PostsList } from '@/src/components/postsList'
 
 export const dynamic = 'error'
 export const revalidate = 60

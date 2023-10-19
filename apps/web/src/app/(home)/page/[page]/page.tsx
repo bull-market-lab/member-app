@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
 import { getBaseUrl } from '@/src/utils/urls'
-import { PostsList } from '@/src/components/posts-list'
+import { PostsList } from '@/src/components/postsList'
 
 // This page is probably temporary, it doesn't benefit SEO so
 // it's probably a good idea to replace it with an infinite scroll

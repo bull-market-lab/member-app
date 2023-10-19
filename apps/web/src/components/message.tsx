@@ -1,9 +1,9 @@
 import { buildPostTimeValues } from '@/src/utils/datetime'
-import { DisplayLocalTime } from './local-time'
+import { DisplayLocalTime } from './localTime'
 import 'highlight.js/styles/github-dark-dimmed.css'
-import { Attachment, MessageContent } from './message-content'
+import { Attachment, MessageContent } from './messageContent'
 import { IncognitoIcon } from './icons/incognito'
-import { ShieldCheckIcon } from './icons/shield-check'
+import { ShieldCheckIcon } from './icons/shieldCheck'
 
 type MessageProps = {
   snowflakeId: string

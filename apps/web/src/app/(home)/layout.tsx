@@ -1,4 +1,4 @@
-import { LayoutWithSidebar } from '@/src/components/layout-with-sidebar'
+import { LayoutWithSidebar } from '@/src/components/layoutWithSidebar'
 import Balancer from 'react-wrap-balancer'
 import discordImage from '@/discord.png'
 import Image from 'next/image'
