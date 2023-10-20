@@ -8,7 +8,7 @@ import {
   CHAIN_ID_UNSUPPORTED,
   ChainConfig,
   NETWORK_TESTNET,
-  NEUTRON_TESTNET_CHAIN_CONFIG,
+  // NEUTRON_TESTNET_CHAIN_CONFIG,
   TERRA_TESTNET_CHAIN_CONFIG,
   CHAIN_NEUTRON,
   CHAIN_ID_PION_ONE,
@@ -23,13 +23,13 @@ const ChainContextProvider = ({ children }: { children: React.ReactNode }) => {
   const selectedChain = params?.get('chain')?.toLowerCase() ?? CHAIN_TERRA
 
   const [currentChain, setCurrentChain] = useState<Chain>(
-    selectedChain === CHAIN_TERRA ? CHAIN_TERRA : CHAIN_NEUTRON
+    selectedChain === CHAIN_TERRA ? CHAIN_TERRA : CHAIN_NEUTRON,
   )
   const [currentChainId, setCurrentChainId] = useState<ChainID>(
-    selectedChain === CHAIN_TERRA ? CHAIN_ID_PISCO_ONE : CHAIN_ID_PION_ONE
+    selectedChain === CHAIN_TERRA ? CHAIN_ID_PISCO_ONE : CHAIN_ID_PION_ONE,
   )
   const [currentChainConfig, setCurrentChainConfig] = useState<ChainConfig>(
-    TERRA_TESTNET_CHAIN_CONFIG
+    TERRA_TESTNET_CHAIN_CONFIG,
   )
   const [lcd, setLCD] = useState<LCDClient>()
   const [myAddress, setMyAddress] = useState<string>()
@@ -135,7 +135,7 @@ const ChainContextProvider = ({ children }: { children: React.ReactNode }) => {
     if (currentChain === CHAIN_TERRA) {
       updatedChainConfig = TERRA_TESTNET_CHAIN_CONFIG
     } else if (currentChain === CHAIN_NEUTRON) {
-      updatedChainConfig = NEUTRON_TESTNET_CHAIN_CONFIG
+      // updatedChainConfig = NEUTRON_TESTNET_CHAIN_CONFIG
       // } else if (currentChain == CHAIN_OSMOSIS) {
       //   updatedChainConfig = OSMOSIS_TESTNET_CHAIN_CONFIG;
     } else {

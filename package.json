@@ -18,6 +18,7 @@
     "migrate": "yarn workspace @member-protocol/db migrate",
     "register-commands": "yarn workspace @member-protocol/bot register-commands",
     "dev:register-commands": "yarn workspace @member-protocol/bot dev:register-commands",
+    "generate-cosmwasm-contract-types": "yarn workspace @member-protocol/cosmwasm-contract-types generate-cosmwasm-contract-types",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "prepare": "husky install"
   },

@@ -1,0 +1,15 @@
+{
+  "name": "@member-protocol/cosmwasm-contract-types",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "generate-cosmwasm-contract-types": "./generate_cosmwasm_contract_types.sh"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "publishConfig": {
+    "access": "public"
+  }
+}
