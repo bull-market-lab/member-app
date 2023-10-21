@@ -1,5 +1,5 @@
-import { LCDClient } from '@terra-money/feather.js'
-import { createContext } from 'react'
+import { LCDClient } from "@terra-money/feather.js";
+import { createContext } from "react";
 
 import {
   CHAIN_ID_PISCO_ONE,
@@ -8,15 +8,15 @@ import {
   TERRA_TESTNET_CHAIN_CONFIG,
   ChainID,
   CHAIN_TERRA,
-} from '../utils/constants'
+} from "../utils/constants";
 
 type ChainContextType = {
-  currentChain: Chain
-  currentChainId: ChainID
-  currentChainConfig: ChainConfig
-  lcd?: LCDClient
-  myAddress?: string
-}
+  currentChain: Chain;
+  currentChainId: ChainID;
+  currentChainConfig: ChainConfig;
+  lcd?: LCDClient;
+  myAddress?: string;
+};
 
 const ChainContext = createContext<ChainContextType>({
   currentChain: CHAIN_TERRA,
@@ -24,6 +24,6 @@ const ChainContext = createContext<ChainContextType>({
   currentChainConfig: TERRA_TESTNET_CHAIN_CONFIG,
   lcd: undefined,
   myAddress: undefined,
-})
+});
 
-export default ChainContext
+export default ChainContext;

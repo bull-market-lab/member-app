@@ -1,17 +1,17 @@
-import { MessageGroup } from '@/src/components/message/MessageGroup'
-import { Message } from '@/src/components/message/Message'
+import { MessageGroup } from "@/src/components/message/MessageGroup";
+import { Message } from "@/src/components/message/Message";
 import {
   GroupedMessages,
   MessageType,
   PostMessageType,
   PostType,
-} from '@/src/types/message'
+} from "@/src/types/message";
 
 type PostMessagesProps = {
-  post: PostType
-  postMessage: PostMessageType | undefined
-  groupedMessages: GroupedMessages<MessageType>
-}
+  post: PostType;
+  postMessage: PostMessageType | undefined;
+  groupedMessages: GroupedMessages<MessageType>;
+};
 
 const PostMessages = ({
   post,
@@ -43,7 +43,7 @@ const PostMessages = ({
         />
       ))}
     </MessageGroup>
-  ))
-}
+  ));
+};
 
-export default PostMessages
+export default PostMessages;

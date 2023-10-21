@@ -1,11 +1,11 @@
-import { AnyThreadChannel } from 'discord.js'
-import { db, TransactionDB, KyselyDB } from '@member-protocol/db/node'
-import { revalidateHomePage } from '../../revalidate.js'
+import { AnyThreadChannel } from "discord.js";
+import { db, TransactionDB, KyselyDB } from "@member-protocol/db/node";
+import { revalidateHomePage } from "../../revalidate.js";
 
 export const syncPost = async (thread: AnyThreadChannel) => {
-  const now = new Date()
+  const now = new Date();
   await db
-    .insertInto('posts')
+    .insertInto("posts")
     .values({
       snowflakeId: thread.id,
       title: thread.name,
@@ -22,23 +22,23 @@ export const syncPost = async (thread: AnyThreadChannel) => {
       isLocked: thread.locked ? 1 : 0,
       lastActiveAt: now,
     })
-    .executeTakeFirst()
+    .executeTakeFirst();
 
-  await revalidateHomePage()
-}
+  await revalidateHomePage();
+};
 
 export const deletePost = async (postId: string) => {
-  await db.deleteFrom('posts').where('snowflakeId', '=', postId).execute()
-  await db.deleteFrom('messages').where('postId', '=', postId).execute()
-}
+  await db.deleteFrom("posts").where("snowflakeId", "=", postId).execute();
+  await db.deleteFrom("messages").where("postId", "=", postId).execute();
+};
 
 export const updatePostLastActive = async (
   postId: string,
-  trx: TransactionDB | KyselyDB = db
+  trx: TransactionDB | KyselyDB = db,
 ) => {
   await trx
-    .updateTable('posts')
-    .where('snowflakeId', '=', postId)
+    .updateTable("posts")
+    .where("snowflakeId", "=", postId)
     .set({ lastActiveAt: new Date() })
-    .execute()
-}
+    .execute();
+};

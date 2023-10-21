@@ -1,23 +1,23 @@
-import { parseDiscordMessage } from '@/src/utils/discordMarkdown'
-import { isVideoLink } from '@/src/utils/video'
+import { parseDiscordMessage } from "@/src/utils/discordMarkdown";
+import { isVideoLink } from "@/src/utils/video";
 
 export type Attachment = {
-  id: string
-  url: string
-  name: string
-  contentType: string
-}
+  id: string;
+  url: string;
+  name: string;
+  contentType: string;
+};
 
 type MessageContentProps = {
-  content: string
-  attachments: Attachment[]
-}
+  content: string;
+  attachments: Attachment[];
+};
 
 export const MessageContent = async ({
   content,
   attachments,
 }: MessageContentProps) => {
-  const htmlContent = await parseDiscordMessage(content)
+  const htmlContent = await parseDiscordMessage(content);
 
   return (
     <>
@@ -49,5 +49,5 @@ export const MessageContent = async ({
         ))}
       </div>
     </>
-  )
-}
+  );
+};

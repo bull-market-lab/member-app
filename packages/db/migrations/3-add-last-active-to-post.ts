@@ -1,14 +1,14 @@
-import { Kysely, sql } from 'kysely'
+import { Kysely, sql } from "kysely";
 
 export async function up(db: Kysely<any>): Promise<void> {
   await db.schema
-    .alterTable('posts')
-    .addColumn('lastActiveAt', 'datetime', (col) =>
-      col.notNull().defaultTo(sql`now()`)
+    .alterTable("posts")
+    .addColumn("lastActiveAt", "datetime", (col) =>
+      col.notNull().defaultTo(sql`now()`),
     )
-    .execute()
+    .execute();
 }
 
 export async function down(db: Kysely<any>): Promise<void> {
-  await db.schema.alterTable('posts').dropColumn('lastActiveAt').execute()
+  await db.schema.alterTable("posts").dropColumn("lastActiveAt").execute();
 }

@@ -1,39 +1,39 @@
-import { Coins, MsgExecuteContract, MsgSend } from '@terra-money/feather.js'
-import BigNumber from 'bignumber.js'
+import { Coins, MsgExecuteContract, MsgSend } from "@terra-money/feather.js";
+import BigNumber from "bignumber.js";
 
-const DEFAULT_TOKEN_DECIMALS = 10 ** 6
+const DEFAULT_TOKEN_DECIMALS = 10 ** 6;
 
 export const getTokenDecimals = (denom: string): number => {
   switch (denom) {
-    case 'inj':
-      return 10 ** 18
+    case "inj":
+      return 10 ** 18;
     default:
-      return DEFAULT_TOKEN_DECIMALS
+      return DEFAULT_TOKEN_DECIMALS;
   }
-}
+};
 
 export const isNativeAsset = (assetAddress: string): boolean => {
   return (
-    assetAddress.startsWith('u') ||
-    assetAddress === 'inj' ||
-    assetAddress.startsWith('ibc/')
-  )
-}
+    assetAddress.startsWith("u") ||
+    assetAddress === "inj" ||
+    assetAddress.startsWith("ibc/")
+  );
+};
 
 export const convertTokenDecimals = (
   amount: string,
-  assetAddress: string
+  assetAddress: string,
 ): string => {
-  return BigNumber(amount).times(getTokenDecimals(assetAddress)).toString()
-}
+  return BigNumber(amount).times(getTokenDecimals(assetAddress)).toString();
+};
 
 type ConstructSendTokenMsgProps = {
-  tokenAddress: string
-  senderAddress: string
-  receiverAddress: string
+  tokenAddress: string;
+  senderAddress: string;
+  receiverAddress: string;
   // readable amount, e.g. 1 LUNA, we will convert it to uluna internally
-  humanAmount: string
-}
+  humanAmount: string;
+};
 
 export const constructSendTokenMsg = ({
   tokenAddress,
@@ -47,12 +47,12 @@ export const constructSendTokenMsg = ({
         receiverAddress,
         new Coins({
           [tokenAddress]: convertTokenDecimals(humanAmount, tokenAddress),
-        })
+        }),
       )
     : new MsgExecuteContract(senderAddress, tokenAddress, {
         transfer: {
           recipient: receiverAddress,
           amount: convertTokenDecimals(humanAmount, tokenAddress),
         },
-      })
-}
+      });
+};

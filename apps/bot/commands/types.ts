@@ -3,16 +3,16 @@ import {
   ContextMenuCommandBuilder,
   MessageContextMenuCommandInteraction,
   SlashCommandBuilder,
-} from 'discord.js'
+} from "discord.js";
 
 export type ContextMenuCommand = {
-  data: ContextMenuCommandBuilder
+  data: ContextMenuCommandBuilder;
   execute: (
-    interaction: MessageContextMenuCommandInteraction
-  ) => void | Promise<void>
-}
+    interaction: MessageContextMenuCommandInteraction,
+  ) => void | Promise<void>;
+};
 
 export type SlashCommand = {
-  data: SlashCommandBuilder
-  execute: (interaction: ChatInputCommandInteraction) => void | Promise<void>
-}
+  data: SlashCommandBuilder;
+  execute: (interaction: ChatInputCommandInteraction) => void | Promise<void>;
+};

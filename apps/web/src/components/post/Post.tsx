@@ -1,18 +1,18 @@
-import Link from 'next/link'
-import plur from 'plur'
-import { buildPostTimeValues } from '@/src/utils/datetime'
+import Link from "next/link";
+import plur from "plur";
+import { buildPostTimeValues } from "@/src/utils/datetime";
 
 type PostProps = {
-  id: string
-  title: string
-  messagesCount: number
-  createdAt: Date
-  hasAnswer: boolean
+  id: string;
+  title: string;
+  messagesCount: number;
+  createdAt: Date;
+  hasAnswer: boolean;
   author: {
-    username: string
-    avatar: string
-  }
-}
+    username: string;
+    avatar: string;
+  };
+};
 
 export const Post = ({
   id,
@@ -22,8 +22,8 @@ export const Post = ({
   hasAnswer,
   author,
 }: PostProps) => {
-  const createdAtTimes = buildPostTimeValues(createdAt)
-  const borderColor = hasAnswer ? 'border-green-700' : 'border-neutral-700'
+  const createdAtTimes = buildPostTimeValues(createdAt);
+  const borderColor = hasAnswer ? "border-green-700" : "border-neutral-700";
 
   return (
     <Link href={`/post/${id}`} className="block text-white no-underline">
@@ -41,14 +41,14 @@ export const Post = ({
             className="rounded-full w-5 h-5"
           />
           <div className="text-sm opacity-90 no-underline">
-            {author.username} asked on{' '}
+            {author.username} asked on{" "}
             <time dateTime={createdAtTimes.iso} title={createdAtTimes.tooltip}>
               {createdAtTimes.text}
-            </time>{' '}
-            · {messagesCount} {plur('Message', messagesCount)}
+            </time>{" "}
+            · {messagesCount} {plur("Message", messagesCount)}
             {hasAnswer && (
               <span>
-                {' '}
+                {" "}
                 · <span className="font-semibold text-green-500">Answered</span>
               </span>
             )}
@@ -56,5 +56,5 @@ export const Post = ({
         </div>
       </div>
     </Link>
-  )
-}
+  );
+};

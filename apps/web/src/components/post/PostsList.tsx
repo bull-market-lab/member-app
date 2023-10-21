@@ -1,51 +1,51 @@
-import { db, selectUuid, sql } from '@member-protocol/db/node'
-import { ArrowLeftIcon } from '@/src/components/icons/ArrowLeft'
-import { ArrowRightIcon } from '@/src/components/icons/ArrowRight'
-import { PaginationLink } from '@/src/components/other/PaginationLink'
-import { Post } from '@/src/components/post/Post'
-import { Inbox } from '@/src/components/icons/Inbox'
-import { Balancer } from 'react-wrap-balancer'
+import { db, selectUuid, sql } from "@member-protocol/db/node";
+import { ArrowLeftIcon } from "@/src/components/icons/ArrowLeft";
+import { ArrowRightIcon } from "@/src/components/icons/ArrowRight";
+import { PaginationLink } from "@/src/components/other/PaginationLink";
+import { Post } from "@/src/components/post/Post";
+import { Inbox } from "@/src/components/icons/Inbox";
+import { Balancer } from "react-wrap-balancer";
 
-const POSTS_BY_PAGE = 20
+const POSTS_BY_PAGE = 20;
 
 const getPostsByPage = async (pageNumber: number) => {
-  const limit = POSTS_BY_PAGE
-  const offset = (pageNumber - 1) * limit
+  const limit = POSTS_BY_PAGE;
+  const offset = (pageNumber - 1) * limit;
 
   return await db
-    .selectFrom('posts')
-    .innerJoin('users', 'users.snowflakeId', 'posts.userId')
-    .leftJoin('messages', 'messages.snowflakeId', 'posts.answerId')
+    .selectFrom("posts")
+    .innerJoin("users", "users.snowflakeId", "posts.userId")
+    .leftJoin("messages", "messages.snowflakeId", "posts.answerId")
     .select([
-      selectUuid('posts.id').as('id'),
-      'posts.snowflakeId',
-      'posts.title',
-      'posts.createdAt',
-      'users.username',
-      'users.avatarUrl as userAvatar',
-      sql<number>`if (messages.id is null, 0, 1)`.as('hasAnswer'),
+      selectUuid("posts.id").as("id"),
+      "posts.snowflakeId",
+      "posts.title",
+      "posts.createdAt",
+      "users.username",
+      "users.avatarUrl as userAvatar",
+      sql<number>`if (messages.id is null, 0, 1)`.as("hasAnswer"),
       (eb) =>
         eb
-          .selectFrom('messages')
-          .select(eb.fn.countAll<number>().as('count'))
-          .where('messages.postId', '=', eb.ref('posts.snowflakeId'))
-          .where('messages.snowflakeId', '!=', eb.ref('posts.snowflakeId'))
-          .as('messagesCount'),
+          .selectFrom("messages")
+          .select(eb.fn.countAll<number>().as("count"))
+          .where("messages.postId", "=", eb.ref("posts.snowflakeId"))
+          .where("messages.snowflakeId", "!=", eb.ref("posts.snowflakeId"))
+          .as("messagesCount"),
     ])
-    .orderBy('createdAt', 'desc')
+    .orderBy("createdAt", "desc")
     // Add one more result so we can know if there's a next page, not the
     // prettiest solution but it works great
     .limit(limit + 1)
     .offset(offset)
-    .execute()
-}
+    .execute();
+};
 
 type PostsListProps = {
-  page: number
-}
+  page: number;
+};
 
 export const PostsList = async ({ page }: PostsListProps) => {
-  const posts = await getPostsByPage(page)
+  const posts = await getPostsByPage(page);
 
   if (posts.length === 0) {
     return (
@@ -57,12 +57,12 @@ export const PostsList = async ({ page }: PostsListProps) => {
           </Balancer>
         </div>
       </div>
-    )
+    );
   }
 
-  const postsToRender = posts.slice(0, POSTS_BY_PAGE)
-  const hasPreviousPage = page > 1
-  const hasNextPage = posts.length > POSTS_BY_PAGE
+  const postsToRender = posts.slice(0, POSTS_BY_PAGE);
+  const hasPreviousPage = page > 1;
+  const hasNextPage = posts.length > POSTS_BY_PAGE;
 
   return (
     <>
@@ -98,5 +98,5 @@ export const PostsList = async ({ page }: PostsListProps) => {
         )}
       </div>
     </>
-  )
-}
+  );
+};

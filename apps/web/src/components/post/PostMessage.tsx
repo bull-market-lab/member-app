@@ -1,10 +1,10 @@
-import { MessageGroup } from '@/src/components/message/MessageGroup'
-import { Message } from '@/src/components/message/Message'
-import { PostMessageType } from '@/src/types/message'
+import { MessageGroup } from "@/src/components/message/MessageGroup";
+import { Message } from "@/src/components/message/Message";
+import { PostMessageType } from "@/src/types/message";
 
 type PostMessageProps = {
-  postMessage: PostMessageType | undefined
-}
+  postMessage: PostMessageType | undefined;
+};
 
 const PostMessage = ({ postMessage }: PostMessageProps) => {
   return (
@@ -28,7 +28,7 @@ const PostMessage = ({ postMessage }: PostMessageProps) => {
         <span className="px-4 opacity-80">Original message was deleted.</span>
       )}
     </MessageGroup>
-  )
-}
+  );
+};
 
-export default PostMessage
+export default PostMessage;

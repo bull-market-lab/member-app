@@ -6,20 +6,20 @@ import {
   ComponentType,
   ContextMenuCommandBuilder,
   PermissionFlagsBits,
-} from 'discord.js'
-import { ContextMenuCommand } from '../types.js'
+} from "discord.js";
+import { ContextMenuCommand } from "../types.js";
 import {
   isMessageInForumChannel,
   isMessageSupported,
   replyWithEmbed,
   replyWithEmbedError,
-} from '../../utils.js'
-import { markMessageAsSolution } from '../../db/actions/messages.js'
-import { env } from '../../env.js'
+} from "../../utils.js";
+import { markMessageAsSolution } from "../../db/actions/messages.js";
+import { env } from "../../env.js";
 
 export const command: ContextMenuCommand = {
   data: new ContextMenuCommandBuilder()
-    .setName('Mark Solution')
+    .setName("Mark Solution")
     .setDMPermission(false)
     .setDefaultMemberPermissions(PermissionFlagsBits.SendMessages)
     .setType(ApplicationCommandType.Message),
@@ -28,50 +28,50 @@ export const command: ContextMenuCommand = {
     if (!interaction.channel || !isMessageInForumChannel(interaction.channel)) {
       await replyWithEmbedError(interaction, {
         description:
-          'This command can only be used in a supported forum channel',
-      })
+          "This command can only be used in a supported forum channel",
+      });
 
-      return
+      return;
     }
 
     if (!isMessageSupported(interaction.targetMessage)) {
       await replyWithEmbedError(interaction, {
         description:
           "This type of message is not supported. Make sure the author isn't a bot and the post is indexed",
-      })
+      });
 
-      return
+      return;
     }
 
-    const mainChannel = interaction.channel.parent
+    const mainChannel = interaction.channel.parent;
     if (!mainChannel) {
       await replyWithEmbedError(interaction, {
         description:
-          'Could not find the parent channel, please try again later. If this issue persists, contact a staff member',
-      })
+          "Could not find the parent channel, please try again later. If this issue persists, contact a staff member",
+      });
 
-      return
+      return;
     }
 
     if (mainChannel.type !== ChannelType.GuildForum) {
       await interaction.reply({
         ephemeral: true,
-        content: 'The parent channel is not a forum channel',
-      })
+        content: "The parent channel is not a forum channel",
+      });
 
-      return
+      return;
     }
 
     const interactionMember = await interaction.guild?.members.fetch(
-      interaction.user
-    )
+      interaction.user,
+    );
     if (!interactionMember) {
       await replyWithEmbedError(interaction, {
         description:
-          'Could not find your info in the server, please try again later. If this issue persists, contact a staff member',
-      })
+          "Could not find your info in the server, please try again later. If this issue persists, contact a staff member",
+      });
 
-      return
+      return;
     }
 
     if (
@@ -83,50 +83,50 @@ export const command: ContextMenuCommand = {
     ) {
       await replyWithEmbedError(interaction, {
         description:
-          'Only the post author, helpers or moderators can mark a message as the answer',
-      })
+          "Only the post author, helpers or moderators can mark a message as the answer",
+      });
 
-      return
+      return;
     }
 
     if (interaction.targetId === interaction.channelId) {
       await replyWithEmbedError(interaction, {
         description:
           "You can't mark the post itself as the answer. If you figured out the issue by yourself, please send it as a separate message and mark it as the answer",
-      })
+      });
 
-      return
+      return;
     }
 
     await markMessageAsSolution(
       interaction.targetMessage.id,
-      interaction.channelId
-    )
+      interaction.channelId,
+    );
 
     const answeredTagId = mainChannel.availableTags.find((t) =>
-      t.name.includes('Answered')
-    )?.id
+      t.name.includes("Answered"),
+    )?.id;
 
     if (answeredTagId) {
       const newTags = Array.from(
-        new Set([...interaction.channel.appliedTags, answeredTagId])
-      )
-      interaction.channel.setAppliedTags(newTags)
+        new Set([...interaction.channel.appliedTags, answeredTagId]),
+      );
+      interaction.channel.setAppliedTags(newTags);
     }
 
     await replyWithEmbed(interaction, {
-      title: '✅ Success!',
+      title: "✅ Success!",
       description:
-        'This question has been marked as answered! If you have any other questions, feel free to create another post',
+        "This question has been marked as answered! If you have any other questions, feel free to create another post",
       color: Colors.Green,
       fields: [
         {
-          name: 'Jump to answer',
+          name: "Jump to answer",
           value: `[Click here](${interaction.targetMessage.url})`,
           inline: true,
         },
       ],
-    })
+    });
 
     // edit instructions message to add the button for message url (get the first message sent by the bot)
     const instructionsMessage = (
@@ -136,7 +136,7 @@ export const command: ContextMenuCommand = {
       })
     )
       .filter((m) => m.author.id === interaction.client.user?.id)
-      .last()
+      .last();
 
     if (instructionsMessage) {
       try {
@@ -148,16 +148,16 @@ export const command: ContextMenuCommand = {
                 {
                   type: ComponentType.Button,
                   style: ButtonStyle.Link,
-                  label: 'Jump to Answer',
+                  label: "Jump to Answer",
                   url: interaction.targetMessage.url,
                 },
               ],
             },
           ],
-        })
+        });
       } catch (err) {
-        console.error('Failed to update instructions message:', err)
+        console.error("Failed to update instructions message:", err);
       }
     }
   },
-}
+};

@@ -1,60 +1,60 @@
-import { Colors, PermissionFlagsBits, SlashCommandBuilder } from 'discord.js'
-import { SlashCommand } from '../types.js'
-import { replyWithEmbed } from '../../utils.js'
-import { db } from '@member-protocol/db/node'
+import { Colors, PermissionFlagsBits, SlashCommandBuilder } from "discord.js";
+import { SlashCommand } from "../types.js";
+import { replyWithEmbed } from "../../utils.js";
+import { db } from "@member-protocol/db/node";
 
 export const command: SlashCommand = {
   data: new SlashCommandBuilder()
-    .setName('refresh-answer-count')
+    .setName("refresh-answer-count")
     .setDescription(
-      'Refreshes the count of answers for every user (expensive call so only use it if really necessary)'
+      "Refreshes the count of answers for every user (expensive call so only use it if really necessary)",
     )
     .setDMPermission(false)
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
 
   async execute(interaction) {
     await replyWithEmbed(interaction, {
-      title: '⌛ Processing...',
+      title: "⌛ Processing...",
       description:
-        'Your request has been queued. This might take a while to complete...',
-    })
+        "Your request has been queued. This might take a while to complete...",
+    });
 
     try {
       await db
-        .updateTable('users')
+        .updateTable("users")
         .set({
           answersCount: (eb) =>
             eb
-              .selectFrom('posts')
-              .select(eb.fn.countAll<number>().as('count'))
-              .innerJoin('messages', (join) =>
+              .selectFrom("posts")
+              .select(eb.fn.countAll<number>().as("count"))
+              .innerJoin("messages", (join) =>
                 join
-                  .onRef('messages.snowflakeId', '=', 'posts.answerId')
-                  .onRef('messages.userId', '=', 'users.snowflakeId')
+                  .onRef("messages.snowflakeId", "=", "posts.answerId")
+                  .onRef("messages.userId", "=", "users.snowflakeId"),
               ),
         })
-        .execute()
+        .execute();
 
       await interaction.editReply({
         embeds: [
           {
-            title: '✅ Success!',
-            description: 'The answer count of the users has been updated',
+            title: "✅ Success!",
+            description: "The answer count of the users has been updated",
             color: Colors.Green,
           },
         ],
-      })
+      });
     } catch (err) {
-      const description = err instanceof Error ? err.message : 'Unknown reason'
+      const description = err instanceof Error ? err.message : "Unknown reason";
 
       await interaction.editReply({
         embeds: [
           {
-            title: 'Error',
+            title: "Error",
             description,
           },
         ],
-      })
+      });
     }
   },
-}
+};

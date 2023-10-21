@@ -1,4 +1,4 @@
-import { IconProps, IconSvg } from './Base'
+import { IconProps, IconSvg } from "./Base";
 
 export const ArrowLeftIcon = (props: IconProps) => (
   <IconSvg
@@ -14,4 +14,4 @@ export const ArrowLeftIcon = (props: IconProps) => (
       d="M19.5 12h-15m0 0l6.75 6.75M4.5 12l6.75-6.75"
     />
   </IconSvg>
-)
+);

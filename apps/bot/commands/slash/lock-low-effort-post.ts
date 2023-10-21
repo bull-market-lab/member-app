@@ -3,48 +3,48 @@ import {
   Colors,
   PermissionFlagsBits,
   SlashCommandBuilder,
-} from 'discord.js'
-import { dedent } from 'ts-dedent'
-import { SlashCommand } from '../types.js'
-import { replyWithEmbedError } from '../../utils.js'
+} from "discord.js";
+import { dedent } from "ts-dedent";
+import { SlashCommand } from "../types.js";
+import { replyWithEmbedError } from "../../utils.js";
 
 export const command: SlashCommand = {
   data: new SlashCommandBuilder()
-    .setName('lock-low-effort-post')
-    .setDescription('Locks a post and sends a message explaining the reason')
+    .setName("lock-low-effort-post")
+    .setDescription("Locks a post and sends a message explaining the reason")
     .setDMPermission(false)
     .setDefaultMemberPermissions(PermissionFlagsBits.ManageThreads),
 
   async execute(interaction) {
     if (!interaction.channel?.isThread()) {
       await replyWithEmbedError(interaction, {
-        description: 'This command can only be used in a thread/forum post',
-      })
-      return
+        description: "This command can only be used in a thread/forum post",
+      });
+      return;
     }
 
-    const mainChannel = interaction.channel.parent
+    const mainChannel = interaction.channel.parent;
     if (mainChannel && mainChannel.type === ChannelType.GuildForum) {
       const lockedTagId = mainChannel.availableTags.find((t) =>
-        t.name.includes('Locked')
-      )?.id
+        t.name.includes("Locked"),
+      )?.id;
 
       if (lockedTagId) {
         const newTags = Array.from(
-          new Set([...interaction.channel.appliedTags, lockedTagId])
-        )
-        interaction.channel.setAppliedTags(newTags)
+          new Set([...interaction.channel.appliedTags, lockedTagId]),
+        );
+        interaction.channel.setAppliedTags(newTags);
       }
     }
 
-    interaction.reply({ content: 'Ok!', ephemeral: true })
+    interaction.reply({ content: "Ok!", ephemeral: true });
 
-    await interaction.channel.setLocked(true)
+    await interaction.channel.setLocked(true);
     await interaction.channel.send({
       embeds: [
         {
           color: Colors.Blue,
-          title: '🔒 Post Locked',
+          title: "🔒 Post Locked",
           description: dedent`
             This post has been locked because it was considered low-effort by the moderation team. We encourage you to create a new post, keeping in mind the guidelines described here: https://discord.com/channels/752553802359505017/1138338531983491154
 
@@ -52,6 +52,6 @@ export const command: SlashCommand = {
           `,
         },
       ],
-    })
+    });
   },
-}
+};

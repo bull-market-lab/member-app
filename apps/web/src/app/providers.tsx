@@ -1,31 +1,31 @@
-'use client'
+"use client";
 
-import { CacheProvider } from '@chakra-ui/next-js'
-import { ChakraProvider } from '@chakra-ui/react'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { useEffect, useState } from 'react'
+import { CacheProvider } from "@chakra-ui/next-js";
+import { ChakraProvider } from "@chakra-ui/react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
 // import { ChainProvider as CosmosKitProvider } from "@cosmos-kit/react";
 // import { wallets as KeplrWallets } from "@cosmos-kit/keplr-extension";
-import { WalletProvider as TerraWalletKitProvider } from '@terra-money/wallet-kit'
+import { WalletProvider as TerraWalletKitProvider } from "@terra-money/wallet-kit";
 
 // import Navbar from '@/components/common/Navbar'
 // import Footer from '@/components/common/Footer'
 // import theme from '@/theme/theme'
 // import CosmosKitChainContextProvider from "@/contexts/CosmosKitChainContextProvider";
-import TerraWalletKitChainContextProvider from '@/src/contexts/TerraWalletKitChainContextProvider'
-import { DEFAULT_LCD_CONFIG } from '@/src/utils/network'
-import RootHeader from '@/src/components/header/RootHeader'
+import TerraWalletKitChainContextProvider from "@/src/contexts/TerraWalletKitChainContextProvider";
+import { DEFAULT_LCD_CONFIG } from "@/src/utils/network";
+import RootHeader from "@/src/components/header/RootHeader";
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
-  const [isClient, setIsClient] = useState(false)
+  const [isClient, setIsClient] = useState(false);
 
-  const queryClient = new QueryClient()
+  const queryClient = new QueryClient();
 
   //// required for terra wallet kit
   // workaround for window undefined error at launch, terra wallet kit needs window
   useEffect(() => {
-    setIsClient(true)
-  }, [])
+    setIsClient(true);
+  }, []);
 
   //// required for cosmos kit
   // const supportedChains = chains.filter((chain) =>
@@ -65,7 +65,7 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
         </QueryClientProvider>
       </ChakraProvider>
     </CacheProvider>
-  ) : null
-}
+  ) : null;
+};
 
-export default Providers
+export default Providers;

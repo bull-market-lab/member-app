@@ -1,10 +1,10 @@
-import { truncate } from '@/src/utils/truncate'
-import { PostType } from '@/src/types/message'
+import { truncate } from "@/src/utils/truncate";
+import { PostType } from "@/src/types/message";
 
 type PostHeaderProps = {
-  post: PostType
-  hasAnswer: string | boolean | null
-}
+  post: PostType;
+  hasAnswer: string | boolean | null;
+};
 
 const PostHeader = ({ post, hasAnswer }: PostHeaderProps) => {
   return (
@@ -23,7 +23,7 @@ const PostHeader = ({ post, hasAnswer }: PostHeaderProps) => {
             </div>
           )}
           <div className="opacity-90">
-            {truncate(post.username, 32)} posted this in{' '}
+            {truncate(post.username, 32)} posted this in{" "}
             <span className="opacity-80 font-semibold">
               #{post.channelName}
             </span>
@@ -40,7 +40,7 @@ const PostHeader = ({ post, hasAnswer }: PostHeaderProps) => {
         </a>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default PostHeader
+export default PostHeader;

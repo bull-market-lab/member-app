@@ -1,25 +1,25 @@
-import { db, selectUuid } from '@member-protocol/db/node'
-import { CheckCircleSolidIcon } from '@/src/components/icons/CheckCircleSolid'
+import { db, selectUuid } from "@member-protocol/db/node";
+import { CheckCircleSolidIcon } from "@/src/components/icons/CheckCircleSolid";
 
 const getMostHelpfulUsers = async () => {
   return db
-    .selectFrom('users')
+    .selectFrom("users")
     .select([
-      selectUuid('id').as('id'),
-      'username',
-      'avatarUrl',
-      'answersCount',
+      selectUuid("id").as("id"),
+      "username",
+      "avatarUrl",
+      "answersCount",
     ])
-    .orderBy('answersCount', 'desc')
-    .orderBy('id', 'desc')
+    .orderBy("answersCount", "desc")
+    .orderBy("id", "desc")
     .limit(15)
-    .execute()
-}
+    .execute();
+};
 
 export const MostHelpful = async () => {
-  const users = await getMostHelpfulUsers()
+  const users = await getMostHelpfulUsers();
 
-  if (users.length === 0) return null
+  if (users.length === 0) return null;
 
   return (
     <>
@@ -44,5 +44,5 @@ export const MostHelpful = async () => {
         ))}
       </div>
     </>
-  )
-}
+  );
+};

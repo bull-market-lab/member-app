@@ -1,7 +1,7 @@
-import { useConnectedWallet, useWallet } from '@terra-money/wallet-kit'
-import { useSearchParams } from 'next/navigation'
-import { LCDClient } from '@terra-money/feather.js'
-import React, { useEffect, useState } from 'react'
+import { useConnectedWallet, useWallet } from "@terra-money/wallet-kit";
+import { useSearchParams } from "next/navigation";
+import { LCDClient } from "@terra-money/feather.js";
+import React, { useEffect, useState } from "react";
 
 import {
   CHAIN_ID_PISCO_ONE,
@@ -15,50 +15,50 @@ import {
   Chain,
   ChainID,
   CHAIN_TERRA,
-} from '../utils/constants'
-import ChainContext from '../contexts/ChainContext'
+} from "../utils/constants";
+import ChainContext from "../contexts/ChainContext";
 
 const ChainContextProvider = ({ children }: { children: React.ReactNode }) => {
-  const params = useSearchParams()
-  const selectedChain = params?.get('chain')?.toLowerCase() ?? CHAIN_TERRA
+  const params = useSearchParams();
+  const selectedChain = params?.get("chain")?.toLowerCase() ?? CHAIN_TERRA;
 
   const [currentChain, setCurrentChain] = useState<Chain>(
     selectedChain === CHAIN_TERRA ? CHAIN_TERRA : CHAIN_NEUTRON,
-  )
+  );
   const [currentChainId, setCurrentChainId] = useState<ChainID>(
     selectedChain === CHAIN_TERRA ? CHAIN_ID_PISCO_ONE : CHAIN_ID_PION_ONE,
-  )
+  );
   const [currentChainConfig, setCurrentChainConfig] = useState<ChainConfig>(
     TERRA_TESTNET_CHAIN_CONFIG,
-  )
-  const [lcd, setLCD] = useState<LCDClient>()
-  const [myAddress, setMyAddress] = useState<string>()
+  );
+  const [lcd, setLCD] = useState<LCDClient>();
+  const [myAddress, setMyAddress] = useState<string>();
 
-  const connectedWallet = useConnectedWallet()
+  const connectedWallet = useConnectedWallet();
   // network actually means LCDConfig instead of testnet or mainnet
-  const { status: connectionStatus, network: lcdConfig } = useWallet()
+  const { status: connectionStatus, network: lcdConfig } = useWallet();
 
   // update current chain when selected chain in router parameter changes
   useEffect(() => {
-    setCurrentChain(selectedChain as Chain)
+    setCurrentChain(selectedChain as Chain);
     // console.log(
     //   `selected chain changed to ${selectedChain}, update current chain to ${selectedChain}`
     // );
-  }, [selectedChain])
+  }, [selectedChain]);
 
   // update lcd when wallet connection status or lcd config changed
   // e.g. when user first connect wallet, or switch network
   useEffect(() => {
     switch (connectionStatus) {
-      case 'CONNECTED':
-        setLCD(new LCDClient(lcdConfig))
-        break
-      case 'NOT_CONNECTED':
-        setLCD(undefined)
-        break
+      case "CONNECTED":
+        setLCD(new LCDClient(lcdConfig));
+        break;
+      case "NOT_CONNECTED":
+        setLCD(undefined);
+        break;
       default:
-        setLCD(undefined)
-        break
+        setLCD(undefined);
+        break;
     }
     // console.log(
     //   `wallet connection status changed to ${connectionStatus} lcd config changed to ${JSON.stringify(
@@ -67,15 +67,15 @@ const ChainContextProvider = ({ children }: { children: React.ReactNode }) => {
     //     2
     //   )}, update lcd`
     // );
-  }, [connectionStatus, lcdConfig, connectedWallet])
+  }, [connectionStatus, lcdConfig, connectedWallet]);
 
   // update my address when current chain or connected wallet changed
   useEffect(() => {
-    let updatedWalletAddress = myAddress
+    let updatedWalletAddress = myAddress;
     if (connectedWallet?.addresses) {
-      updatedWalletAddress = connectedWallet?.addresses[currentChainId]
+      updatedWalletAddress = connectedWallet?.addresses[currentChainId];
     }
-    setMyAddress(updatedWalletAddress)
+    setMyAddress(updatedWalletAddress);
     // console.log(
     //   `current chain changed to ${currentChain}, current chain id changed to ${currentChainId}, connected wallet changed to ${JSON.stringify(
     //     connectedWallet?.addresses,
@@ -83,7 +83,7 @@ const ChainContextProvider = ({ children }: { children: React.ReactNode }) => {
     //     2
     //   )}, update my address to ${updatedWalletAddress}`
     // );
-  }, [currentChain, currentChainId, connectedWallet])
+  }, [currentChain, currentChainId, connectedWallet]);
 
   /*
   update current chain id when current chain or current network changes
@@ -99,20 +99,20 @@ const ChainContextProvider = ({ children }: { children: React.ReactNode }) => {
     else chain id is unsupported
   */
   useEffect(() => {
-    let updatedChainId: ChainID = currentChainId
+    let updatedChainId: ChainID = currentChainId;
     switch (currentChain) {
       case CHAIN_TERRA:
         updatedChainId =
           connectedWallet?.network === NETWORK_TESTNET
             ? CHAIN_ID_PISCO_ONE
-            : CHAIN_ID_UNSUPPORTED
-        break
+            : CHAIN_ID_UNSUPPORTED;
+        break;
       case CHAIN_NEUTRON:
         updatedChainId =
           connectedWallet?.network === NETWORK_TESTNET
             ? CHAIN_ID_PION_ONE
-            : CHAIN_ID_UNSUPPORTED
-        break
+            : CHAIN_ID_UNSUPPORTED;
+        break;
       // case CHAIN_OSMOSIS:
       //   updatedChainId =
       //     connectedWallet?.network === NETWORK_TESTNET
@@ -120,29 +120,29 @@ const ChainContextProvider = ({ children }: { children: React.ReactNode }) => {
       //       : CHAIN_ID_UNSUPPORTED;
       //   break;
       default:
-        updatedChainId = CHAIN_ID_UNSUPPORTED
-        break
+        updatedChainId = CHAIN_ID_UNSUPPORTED;
+        break;
     }
-    setCurrentChainId(updatedChainId)
+    setCurrentChainId(updatedChainId);
     // console.log(
     //   `current chain changed to ${currentChain}, current network changed to ${connectedWallet?.network}, update current chain id to ${updatedChainId}`
     // );
-  }, [currentChain, connectedWallet])
+  }, [currentChain, connectedWallet]);
 
   // update chain config when current chain changes
   useEffect(() => {
-    let updatedChainConfig: ChainConfig = currentChainConfig
+    let updatedChainConfig: ChainConfig = currentChainConfig;
     if (currentChain === CHAIN_TERRA) {
-      updatedChainConfig = TERRA_TESTNET_CHAIN_CONFIG
+      updatedChainConfig = TERRA_TESTNET_CHAIN_CONFIG;
     } else if (currentChain === CHAIN_NEUTRON) {
       // updatedChainConfig = NEUTRON_TESTNET_CHAIN_CONFIG
       // } else if (currentChain == CHAIN_OSMOSIS) {
       //   updatedChainConfig = OSMOSIS_TESTNET_CHAIN_CONFIG;
     } else {
       // default to terra testnet config
-      updatedChainConfig = TERRA_TESTNET_CHAIN_CONFIG
+      updatedChainConfig = TERRA_TESTNET_CHAIN_CONFIG;
     }
-    setCurrentChainConfig(updatedChainConfig)
+    setCurrentChainConfig(updatedChainConfig);
     // console.log(
     //   `current chain changed to ${currentChain}, update chain config to ${JSON.stringify(
     //     updatedChainConfig,
@@ -150,7 +150,7 @@ const ChainContextProvider = ({ children }: { children: React.ReactNode }) => {
     //     2
     //   )}`
     // );
-  }, [currentChain])
+  }, [currentChain]);
 
   return (
     <ChainContext.Provider
@@ -164,7 +164,7 @@ const ChainContextProvider = ({ children }: { children: React.ReactNode }) => {
     >
       {children}
     </ChainContext.Provider>
-  )
-}
+  );
+};
 
-export default ChainContextProvider
+export default ChainContextProvider;

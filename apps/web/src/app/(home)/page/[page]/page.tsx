@@ -1,7 +1,7 @@
-import { notFound } from 'next/navigation'
-import { Metadata } from 'next'
-import { getBaseUrl } from '@/src/utils/urls'
-import { PostsList } from '@/src/components/post/PostsList'
+import { notFound } from "next/navigation";
+import { Metadata } from "next";
+import { getBaseUrl } from "@/src/utils/urls";
+import { PostsList } from "@/src/components/post/PostsList";
 
 // This page is probably temporary, it doesn't benefit SEO so
 // it's probably a good idea to replace it with an infinite scroll
@@ -15,23 +15,23 @@ export const metadata: Metadata = {
     index: false,
     follow: false,
   },
-}
+};
 
-type Params = { page: string }
-type PaginationPageProps = { params: Params }
+type Params = { page: string };
+type PaginationPageProps = { params: Params };
 
 const PaginationPage = async ({ params }: PaginationPageProps) => {
   // Only positive integers
   if (!/^\d+$/g.test(params.page)) {
-    notFound()
+    notFound();
   }
 
-  const page = parseInt(params.page, 10)
+  const page = parseInt(params.page, 10);
   if (Number.isNaN(page) || page < 1) {
-    notFound()
+    notFound();
   }
 
-  return <PostsList page={page} />
-}
+  return <PostsList page={page} />;
+};
 
-export default PaginationPage
+export default PaginationPage;

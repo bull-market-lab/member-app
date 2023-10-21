@@ -1,6 +1,6 @@
-import Balancer from 'react-wrap-balancer'
-import discordImage from '@/discord.png'
-import Image from 'next/image'
+import Balancer from "react-wrap-balancer";
+import discordImage from "@/discord.png";
+import Image from "next/image";
 
 const HomeHeader = () => {
   return (
@@ -26,9 +26,9 @@ const HomeHeader = () => {
           className="hidden lg:flex absolute top-0 bottom-0 left-1/2"
           style={{
             WebkitMaskImage:
-              'linear-gradient(to bottom, rgba(0, 0, 0, 1.0) 50%, transparent 100%)',
+              "linear-gradient(to bottom, rgba(0, 0, 0, 1.0) 50%, transparent 100%)",
             maskImage:
-              'linear-gradient(to top, rgba(0, 0, 0, 1.0) 0%, transparent 100%)',
+              "linear-gradient(to top, rgba(0, 0, 0, 1.0) 0%, transparent 100%)",
           }}
         >
           <div>
@@ -39,16 +39,16 @@ const HomeHeader = () => {
               className="block relative -top-11 -skew-x-3 opacity-90 "
               style={{
                 WebkitMaskImage:
-                  'linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 1.0) 20%, rgba(0, 0, 0, 1.0) 80%, transparent 100%)',
+                  "linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 1.0) 20%, rgba(0, 0, 0, 1.0) 80%, transparent 100%)",
                 maskImage:
-                  'linear-gradient(to top, rgba(0, 0, 0, 1.0) 0%, transparent 100%)',
+                  "linear-gradient(to top, rgba(0, 0, 0, 1.0) 0%, transparent 100%)",
               }}
             />
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default HomeHeader
+export default HomeHeader;

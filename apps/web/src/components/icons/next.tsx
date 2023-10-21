@@ -1,4 +1,4 @@
-import { IconProps, IconSvg } from './Base'
+import { IconProps, IconSvg } from "./Base";
 
 export const NextIcon = (props: IconProps) => (
   <IconSvg
@@ -42,4 +42,4 @@ export const NextIcon = (props: IconProps) => (
       fill="currentColor"
     />
   </IconSvg>
-)
+);

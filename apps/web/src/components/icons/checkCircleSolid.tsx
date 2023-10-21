@@ -1,4 +1,4 @@
-import { IconProps, IconSvg } from './Base'
+import { IconProps, IconSvg } from "./Base";
 
 export const CheckCircleSolidIcon = (props: IconProps) => (
   <IconSvg viewBox="0 0 24 24" fill="currentColor" {...props}>
@@ -8,4 +8,4 @@ export const CheckCircleSolidIcon = (props: IconProps) => (
       clipRule="evenodd"
     />
   </IconSvg>
-)
+);

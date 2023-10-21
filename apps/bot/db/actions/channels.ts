@@ -1,48 +1,49 @@
-import { db } from '@member-protocol/db/node'
-import { channelsCache } from '../../lib/cache.js'
-import { Channel, ChannelType } from 'discord.js'
-import { baseLog } from '../../log.js'
-import { isMessageInForumChannel } from '../../utils.js'
+import { db } from "@member-protocol/db/node";
+import { channelsCache } from "../../lib/cache.js";
+import { Channel, ChannelType } from "discord.js";
+import { baseLog } from "../../log.js";
+import { isMessageInForumChannel } from "../../utils.js";
 
-const log = baseLog.extend('channels')
+const log = baseLog.extend("channels");
 
 export const syncMessageChannel = async (messageChannel: Channel) => {
-  if (!isMessageInForumChannel(messageChannel) || !messageChannel.parent) return
-  const mainChannel = messageChannel.parent
+  if (!isMessageInForumChannel(messageChannel) || !messageChannel.parent)
+    return;
+  const mainChannel = messageChannel.parent;
 
   if (
     mainChannel.type !== ChannelType.GuildForum &&
     mainChannel.type !== ChannelType.GuildText
   ) {
-    return
+    return;
   }
 
-  await syncChannel(mainChannel)
-}
+  await syncChannel(mainChannel);
+};
 
 export const syncChannel = async (channel: Channel) => {
-  const isCached = channelsCache.get(channel.id)
-  if (isCached) return
+  const isCached = channelsCache.get(channel.id);
+  if (isCached) return;
 
-  const isGuildBasedChannel = 'guild' in channel
-  if (!isGuildBasedChannel) return
+  const isGuildBasedChannel = "guild" in channel;
+  if (!isGuildBasedChannel) return;
 
-  const topic = 'topic' in channel ? channel.topic : null
+  const topic = "topic" in channel ? channel.topic : null;
 
   await db
-    .insertInto('channels')
+    .insertInto("channels")
     .values({
       snowflakeId: channel.id,
       name: channel.name,
       type: channel.type,
-      topic: topic ?? '',
+      topic: topic ?? "",
     })
     .onDuplicateKeyUpdate({
       name: channel.name,
-      topic: topic ?? '',
+      topic: topic ?? "",
     })
-    .executeTakeFirst()
+    .executeTakeFirst();
 
-  log('Synced channel (#%s)', channel.name)
-  channelsCache.set(channel.id, true)
-}
+  log("Synced channel (#%s)", channel.name);
+  channelsCache.set(channel.id, true);
+};

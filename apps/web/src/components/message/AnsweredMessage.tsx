@@ -1,11 +1,11 @@
-import { MessageType } from '@/src/types/message'
-import { MessageContent } from '@/src/components/message/MessageContent'
-import { ArrowDownIcon } from '@/src/components/icons/ArrowDown'
-import { CheckCircleSolidIcon } from '@/src/components/icons/CheckCircleSolid'
+import { MessageType } from "@/src/types/message";
+import { MessageContent } from "@/src/components/message/MessageContent";
+import { ArrowDownIcon } from "@/src/components/icons/ArrowDown";
+import { CheckCircleSolidIcon } from "@/src/components/icons/CheckCircleSolid";
 
 type AnsweredMessageProps = {
-  answerMessage: MessageType | undefined
-}
+  answerMessage: MessageType | undefined;
+};
 
 const AnsweredMessage = ({ answerMessage }: AnsweredMessageProps) => {
   return (
@@ -14,7 +14,7 @@ const AnsweredMessage = ({ answerMessage }: AnsweredMessageProps) => {
         <div className="flex space-x-2 items-center text-green-400">
           <CheckCircleSolidIcon />
           <div className="text-sm">
-            Answered by{' '}
+            Answered by{" "}
             <span className="font-semibold">
               {answerMessage.authorUsername}
             </span>
@@ -24,8 +24,8 @@ const AnsweredMessage = ({ answerMessage }: AnsweredMessageProps) => {
         <div
           className="max-h-32 overflow-hidden"
           style={{
-            WebkitMaskImage: 'linear-gradient(180deg, #000 80%, transparent)',
-            maskImage: 'linear-gradient(180deg, #000 80%, transparent)',
+            WebkitMaskImage: "linear-gradient(180deg, #000 80%, transparent)",
+            maskImage: "linear-gradient(180deg, #000 80%, transparent)",
           }}
         >
           <MessageContent
@@ -43,7 +43,7 @@ const AnsweredMessage = ({ answerMessage }: AnsweredMessageProps) => {
         </a>
       </div>
     )
-  )
-}
+  );
+};
 
-export default AnsweredMessage
+export default AnsweredMessage;

@@ -1,32 +1,32 @@
-import { MsgExecuteContract } from '@terra-money/feather.js'
-import { useMemo } from 'react'
+import { MsgExecuteContract } from "@terra-money/feather.js";
+import { useMemo } from "react";
 
 import {
   ExecuteMsg,
   RegisterMsg,
-} from '@member-protocol/cosmwasm-contract-types/types/member/Member.types'
+} from "@member-protocol/cosmwasm-contract-types/types/member/Member.types";
 
-import useMyWallet from '@/src/hooks/useMyWallet'
+import useMyWallet from "@/src/hooks/useMyWallet";
 
 const useRegister = () => {
-  const { myAddress, memberContractAddress } = useMyWallet()
+  const { myAddress, memberContractAddress } = useMyWallet();
 
   const msgs = useMemo(() => {
     if (!memberContractAddress || !myAddress) {
-      return []
+      return [];
     }
-    const payload: RegisterMsg = {}
+    const payload: RegisterMsg = {};
     const registerUserMsg: ExecuteMsg = {
       register: payload,
-    }
+    };
     return [
       new MsgExecuteContract(myAddress, memberContractAddress, registerUserMsg),
-    ]
-  }, [myAddress, memberContractAddress])
+    ];
+  }, [myAddress, memberContractAddress]);
 
   return useMemo(() => {
-    return { msgs }
-  }, [msgs])
-}
+    return { msgs };
+  }, [msgs]);
+};
 
-export default useRegister
+export default useRegister;

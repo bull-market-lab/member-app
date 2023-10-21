@@ -1,24 +1,24 @@
-import { buildPostTimeValues } from '@/src/utils/datetime'
-import { DisplayLocalTime } from '../other/LocalTime'
-import 'highlight.js/styles/github-dark-dimmed.css'
-import { Attachment, MessageContent } from './MessageContent'
-import { IncognitoIcon } from '../icons/Incognito'
-import { ShieldCheckIcon } from '../icons/ShieldCheck'
+import { buildPostTimeValues } from "@/src/utils/datetime";
+import { DisplayLocalTime } from "../other/LocalTime";
+import "highlight.js/styles/github-dark-dimmed.css";
+import { Attachment, MessageContent } from "./MessageContent";
+import { IncognitoIcon } from "../icons/Incognito";
+import { ShieldCheckIcon } from "../icons/ShieldCheck";
 
 type MessageProps = {
-  snowflakeId: string
-  content: string
-  isFirstRow: boolean
+  snowflakeId: string;
+  content: string;
+  isFirstRow: boolean;
   author: {
-    username: string
-    avatarUrl: string
-    isPublic: boolean
-    isOP: boolean
-    isModerator: boolean
-  }
-  createdAt: Date
-  attachments: Attachment[]
-}
+    username: string;
+    avatarUrl: string;
+    isPublic: boolean;
+    isOP: boolean;
+    isModerator: boolean;
+  };
+  createdAt: Date;
+  attachments: Attachment[];
+};
 
 export const Message = ({
   snowflakeId,
@@ -28,7 +28,7 @@ export const Message = ({
   createdAt,
   attachments,
 }: MessageProps) => {
-  const createdAtTimes = buildPostTimeValues(createdAt)
+  const createdAtTimes = buildPostTimeValues(createdAt);
 
   return (
     <div id={`message-${snowflakeId}`} className="group ">
@@ -86,5 +86,5 @@ export const Message = ({
         </div>
       </div>
     </div>
-  )
-}
+  );
+};

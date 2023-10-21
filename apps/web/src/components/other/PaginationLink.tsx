@@ -1,12 +1,12 @@
-import Link from 'next/link'
-import { ReactNode } from 'react'
+import Link from "next/link";
+import { ReactNode } from "react";
 
 type PaginationLinkProps = {
-  iconLeft?: ReactNode
-  iconRight?: ReactNode
-  href: string
-  children: ReactNode
-}
+  iconLeft?: ReactNode;
+  iconRight?: ReactNode;
+  href: string;
+  children: ReactNode;
+};
 
 export const PaginationLink = ({
   href,
@@ -25,5 +25,5 @@ export const PaginationLink = ({
         {iconRight}
       </span>
     </Link>
-  )
-}
+  );
+};

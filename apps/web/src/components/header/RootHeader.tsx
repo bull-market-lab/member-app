@@ -1,6 +1,7 @@
-import { GitHubIcon } from '@/src/components/icons/Github'
-import { NextIcon } from '@/src/components/icons/Next'
-import { DiscordIcon } from '@/src/components/icons/Discord'
+import { GitHubIcon } from "@/src/components/icons/Github";
+import { NextIcon } from "@/src/components/icons/Next";
+import { DiscordIcon } from "@/src/components/icons/Discord";
+import Wallet from "@/src/components/wallet/Wallet";
 
 const RootHeader = () => {
   return (
@@ -22,6 +23,8 @@ const RootHeader = () => {
           </span>
         </a>
 
+        <Wallet />
+
         <div className="flex space-x-5">
           <a
             href="https://nextjs.org/discord"
@@ -32,7 +35,6 @@ const RootHeader = () => {
           >
             <DiscordIcon size={7} />
           </a>
-
           <a
             href="https://github.com/rafaelalmeidatk/nextjs-forum"
             target="_blank"
@@ -42,10 +44,11 @@ const RootHeader = () => {
           >
             <GitHubIcon size={7} />
           </a>
+          W
         </div>
       </div>
     </header>
-  )
-}
+  );
+};
 
-export default RootHeader
+export default RootHeader;
