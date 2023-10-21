@@ -1,7 +1,7 @@
 'use client'
 
 import { CacheProvider } from '@chakra-ui/next-js'
-import { ChakraProvider, Container, Flex, Spacer } from '@chakra-ui/react'
+import { ChakraProvider } from '@chakra-ui/react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 // import { ChainProvider as CosmosKitProvider } from "@cosmos-kit/react";
@@ -14,6 +14,7 @@ import { WalletProvider as TerraWalletKitProvider } from '@terra-money/wallet-ki
 // import CosmosKitChainContextProvider from "@/contexts/CosmosKitChainContextProvider";
 import TerraWalletKitChainContextProvider from '@/src/contexts/TerraWalletKitChainContextProvider'
 import { DEFAULT_LCD_CONFIG } from '@/src/utils/network'
+import RootHeader from '@/src/components/header/RootHeader'
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
   const [isClient, setIsClient] = useState(false)
@@ -48,14 +49,15 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
             // walletConnectOptions={...} // required if `wallets` contains mobile wallets
           > */}
             <TerraWalletKitChainContextProvider>
-              <Flex minHeight="100vh" direction="column">
-                <Container maxW="1000px" mx="auto" mb="20">
-                  {/* <Navbar /> */}
-                  {children}
-                </Container>
-                <Spacer />
-                {/* <Footer /> */}
-              </Flex>
+              {/* <Flex minHeight="100vh" direction="column"> */}
+              {/* <Container maxW="1000px" mx="auto" mb="20"> */}
+              {/* <Navbar /> */}
+              <RootHeader />
+              {children}
+              {/* </Container> */}
+              {/* <Spacer /> */}
+              {/* <Footer /> */}
+              {/* </Flex> */}
             </TerraWalletKitChainContextProvider>
             {/* </CosmosKitProvider> */}
             {/* </ShuttleProvider> */}

@@ -1,20 +1,9 @@
 import { randomUUID } from 'crypto'
-
-type RequiredMessageFields = {
-  id: string
-  snowflakeId: string
-  authorId: string
-  createdAt: Date
-}
-
-type GroupedMessages<T> = Array<{
-  id: string
-  messages: T[]
-}>
+import { GroupedMessages, RequiredMessageFields } from '@/src/types/message'
 
 export const groupMessagesByUser = <T extends RequiredMessageFields>(
   messages: T[],
-  answerId: string | null = null
+  answerId: string | null = null,
 ) => {
   return messages.reduce<GroupedMessages<T>>((acc, message) => {
     const lastGroup = acc[acc.length - 1]

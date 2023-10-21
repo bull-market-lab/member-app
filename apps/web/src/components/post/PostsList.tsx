@@ -1,9 +1,9 @@
 import { db, selectUuid, sql } from '@member-protocol/db/node'
-import { ArrowLeftIcon } from '@/src/components/icons/arrowLeft'
-import { ArrowRightIcon } from '@/src/components/icons/arrowRight'
-import { PaginationLink } from '@/src/components/paginationLink'
-import { Post } from '@/src/components/post'
-import { Inbox } from './icons/inbox'
+import { ArrowLeftIcon } from '@/src/components/icons/ArrowLeft'
+import { ArrowRightIcon } from '@/src/components/icons/ArrowRight'
+import { PaginationLink } from '@/src/components/other/PaginationLink'
+import { Post } from '@/src/components/post/Post'
+import { Inbox } from '@/src/components/icons/Inbox'
 import { Balancer } from 'react-wrap-balancer'
 
 const POSTS_BY_PAGE = 20

@@ -1,4 +1,4 @@
-import { IconProps, IconSvg } from './base'
+import { IconProps, IconSvg } from './Base'
 
 export const DiscordIcon = (props: IconProps) => (
   <IconSvg viewBox="0 0 127 96" {...props}>

@@ -1,5 +1,5 @@
 import { db, selectUuid } from '@member-protocol/db/node'
-import { CheckCircleSolidIcon } from '@/src/components/icons/checkCircleSolid'
+import { CheckCircleSolidIcon } from '@/src/components/icons/CheckCircleSolid'
 
 const getMostHelpfulUsers = async () => {
   return db

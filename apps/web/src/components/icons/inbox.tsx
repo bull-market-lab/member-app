@@ -1,4 +1,4 @@
-import { IconProps, IconSvg } from './base'
+import { IconProps, IconSvg } from './Base'
 
 export const Inbox = (props: IconProps) => (
   <IconSvg

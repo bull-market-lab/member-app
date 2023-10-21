@@ -1,4 +1,4 @@
-import { IconProps, IconSvg } from './base'
+import { IconProps, IconSvg } from './Base'
 
 export const IncognitoIcon = (props: IconProps) => (
   <IconSvg viewBox="0 0 16 16" {...props}>
