@@ -1,6 +1,6 @@
 import { Attachment } from "@/src/components/message/MessageContent";
 
-export type PostType = {
+export interface PostType {
   username: string;
   snowflakeId: string;
   createdAt: Date;
@@ -11,9 +11,9 @@ export type PostType = {
   userAvatar: string;
   channelName: string;
   messagesCount: number | null;
-};
+}
 
-export type PostMessageType = {
+export interface PostMessageType {
   content: string;
   createdAt: Date;
   id: string;
@@ -23,9 +23,9 @@ export type PostMessageType = {
   userIsPublic: number;
   userIsModerator: number;
   attachments: Attachment[];
-};
+}
 
-export type MessageType = {
+export interface MessageType {
   snowflakeId: string;
   createdAt: Date;
   content: string;
@@ -36,14 +36,14 @@ export type MessageType = {
   authorUsername: string;
   userIsModerator: number;
   attachments: Attachment[];
-};
+}
 
-export type RequiredMessageFields = {
+export interface RequiredMessageFields {
   id: string;
   snowflakeId: string;
   authorId: string;
   createdAt: Date;
-};
+}
 
 export type GroupedMessages<T> = Array<{
   id: string;
